@@ -56,17 +56,17 @@ public class TravelingSalesmanTest {
         GeneticAlgorithmProblem gap = new GenericGeneticAlgorithmProblem(ef, odd, mf, cf);
         
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
-        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 200000);
+        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, ef, 200000, "TSP_RHC");
         fit.train();
         System.out.println(ef.value(rhc.getOptimal()));
         
         SimulatedAnnealing sa = new SimulatedAnnealing(1E12, .95, hcp);
-        fit = new FixedIterationTrainer(sa, 200000);
+        fit = new FixedIterationTrainer(sa, ef, 200000, "TSP_SA");
         fit.train();
         System.out.println(ef.value(sa.getOptimal()));
-        
+        /*
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 20, gap);
-        fit = new FixedIterationTrainer(ga, 1000);
+        fit = new FixedIterationTrainer(ga, ef, 10000, "TSP_GA");
         fit.train();
         System.out.println(ef.value(ga.getOptimal()));
         
@@ -79,9 +79,9 @@ public class TravelingSalesmanTest {
         ProbabilisticOptimizationProblem pop = new GenericProbabilisticOptimizationProblem(ef, odd, df);
         
         MIMIC mimic = new MIMIC(200, 100, pop);
-        fit = new FixedIterationTrainer(mimic, 1000);
+        fit = new FixedIterationTrainer(mimic, ef, 10000, "TSP_MIMIC");
         fit.train();
         System.out.println(ef.value(mimic.getOptimal()));
-        
+        */
     }
 }

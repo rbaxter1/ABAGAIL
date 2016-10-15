@@ -86,16 +86,19 @@ public class KnapsackTest {
         fit.train();
         System.out.println(ef.value(rhc.getOptimal()));	
     
+        ef = new KnapsackEvaluationFunction(values, weights, MAX_KNAPSACK_WEIGHT, copies);
         SimulatedAnnealing sa = new SimulatedAnnealing(100, .95, hcp);
         fit = new FixedIterationTrainer(sa, ef, 200000, "Knapsack_SA");
         fit.train();
         System.out.println(ef.value(sa.getOptimal()));
         
+        ef = new KnapsackEvaluationFunction(values, weights, MAX_KNAPSACK_WEIGHT, copies);
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 25, gap);
-        fit = new FixedIterationTrainer(ga, ef, 1000, "Knapsack_GA");
+        fit = new FixedIterationTrainer(ga, ef, 50000, "Knapsack_GA");
         fit.train();
         System.out.println(ef.value(ga.getOptimal()));
         
+        ef = new KnapsackEvaluationFunction(values, weights, MAX_KNAPSACK_WEIGHT, copies);
         MIMIC mimic = new MIMIC(200, 100, pop);
         fit = new FixedIterationTrainer(mimic, ef, 1000, "Knapsack_MIMIC");
         fit.train();
