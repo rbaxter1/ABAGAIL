@@ -47,31 +47,46 @@ public class MaxKColoringTest {
      * @param args ignored
      */
     public static void main(String[] args) {
-        Random random = new Random(N*L);
         // create the random velocity
-        Vertex[] vertices = new Vertex[N];
+       Random random = new Random((long) N*L);
+       Vertex[] vertices = new Vertex[N];
+                for (int i = 0; i < N; i++) {
+                    vertices[i] = new Vertex();
+                }
+                for (int i = 0; i < N; i++) {
+                    vertices[i].setAdjMatrixSize(L);
+                    int j=0; int runAway=0;
+                    while(vertices[i].getAadjacencyColorMatrix().size() < L){
+                        int aNeighbor=random.nextInt(N);
+                        if(aNeighbor>i &&
+                                !vertices[i].getAadjacencyColorMatrix().contains(aNeighbor)
+                                && vertices[aNeighbor].getAadjacencyColorMatrix().size()<L) {
+                            vertices[i].getAadjacencyColorMatrix().add(aNeighbor);
+                            vertices[aNeighbor].getAadjacencyColorMatrix().add(i);
+                            runAway=0;
+                        } else runAway++;
+                        if(runAway>1000) {
+                            System.out.println("can't find solution");break;
+                        }
+                    }
+                }     
+        System.out.println("Adjacency graph");
         for (int i = 0; i < N; i++) {
-            Vertex vertex = new Vertex();
-            vertices[i] = vertex;	
-            vertex.setAdjMatrixSize(L);
-            for(int j = 0; j <L; j++ ){
-            	 vertex.getAadjacencyColorMatrix().add(random.nextInt(N*L));
-            }
-        }
-        /*for (int i = 0; i < N; i++) {
             Vertex vertex = vertices[i];
-            System.out.println(Arrays.toString(vertex.getAadjacencyColorMatrix().toArray()));
-        }*/
+            System.out.println(i+" "+Arrays.toString(vertex.getAadjacencyColorMatrix().toArray()));
+        }
+        System.out.printf("---------------");
         // for rhc, sa, and ga we use a permutation based encoding
+        int[] ranges = new int[N];
+        Arrays.fill(ranges, K);
         MaxKColorFitnessFunction ef = new MaxKColorFitnessFunction(vertices);
-        Distribution odd = new DiscretePermutationDistribution(K);
-        NeighborFunction nf = new SwapNeighbor();
-        MutationFunction mf = new SwapMutation();
+        Distribution odd = new DiscreteUniformDistribution(ranges);
+        NeighborFunction nf = new DiscreteChangeOneNeighbor(ranges);
+        MutationFunction mf = new DiscreteChangeOneMutation(ranges);
         CrossoverFunction cf = new SingleCrossOver();
+        Distribution df = new DiscreteDependencyTree(.1, ranges);
         HillClimbingProblem hcp = new GenericHillClimbingProblem(ef, odd, nf);
         GeneticAlgorithmProblem gap = new GenericGeneticAlgorithmProblem(ef, odd, mf, cf);
-        
-        Distribution df = new DiscreteDependencyTree(.1); 
         ProbabilisticOptimizationProblem pop = new GenericProbabilisticOptimizationProblem(ef, odd, df);
         
         long starttime = System.currentTimeMillis();
@@ -105,7 +120,7 @@ public class MaxKColoringTest {
         System.out.println("============================");
         
         starttime = System.currentTimeMillis();
-        MIMIC mimic = new MIMIC(200, 100, pop);
+        MIMIC mimic = new MIMIC(500, 100, pop);
         fit = new FixedIterationTrainer(mimic, 5);
         fit.train();
         System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));  
