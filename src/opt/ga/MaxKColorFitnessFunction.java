@@ -33,7 +33,8 @@ public class MaxKColorFitnessFunction implements EvaluationFunction {
     public double value(Instance d) {
         Vector data = d.getData();                      // Data is color vector of length=graph vertices
         int N = data.size();
-        if(N!=graphSize) {
+        if(N!=graphSize)
+        {
         	System.out.println("\n\n Data vector and Graph size don't match\n\n");
         }
         double iterations = 0;

@@ -25,6 +25,7 @@ import opt.ga.UniformCrossOver;
 import opt.prob.GenericProbabilisticOptimizationProblem;
 import opt.prob.MIMIC;
 import opt.prob.ProbabilisticOptimizationProblem;
+import shared.ConvergenceTrainer;
 import shared.FixedIterationTrainer;
 
 /**
@@ -83,24 +84,29 @@ public class KnapsackTest {
         
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);   
         FixedIterationTrainer fit = new FixedIterationTrainer(rhc, ef, 200000, "Knapsack_RHC");
+        //ConvergenceTrainer fit = new ConvergenceTrainer(rhc, ef, 1E-20, 200000, "Knapsack_RHC");
+        
         fit.train();
         System.out.println(ef.value(rhc.getOptimal()));	
     
         ef = new KnapsackEvaluationFunction(values, weights, MAX_KNAPSACK_WEIGHT, copies);
         SimulatedAnnealing sa = new SimulatedAnnealing(100, .95, hcp);
         fit = new FixedIterationTrainer(sa, ef, 200000, "Knapsack_SA");
+        //fit = new ConvergenceTrainer(sa, ef, 1E-20, 200000, "Knapsack_SA");
         fit.train();
         System.out.println(ef.value(sa.getOptimal()));
         
         ef = new KnapsackEvaluationFunction(values, weights, MAX_KNAPSACK_WEIGHT, copies);
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 25, gap);
         fit = new FixedIterationTrainer(ga, ef, 50000, "Knapsack_GA");
+        //fit = new ConvergenceTrainer(ga, ef, 1E-20, 50000, "Knapsack_GA");
         fit.train();
         System.out.println(ef.value(ga.getOptimal()));
         
         ef = new KnapsackEvaluationFunction(values, weights, MAX_KNAPSACK_WEIGHT, copies);
         MIMIC mimic = new MIMIC(200, 100, pop);
         fit = new FixedIterationTrainer(mimic, ef, 1000, "Knapsack_MIMIC");
+        //fit = new ConvergenceTrainer(mimic, ef, 1E-20, 1000, "Knapsack_MIMIC");
         fit.train();
         System.out.println(ef.value(mimic.getOptimal()));
         

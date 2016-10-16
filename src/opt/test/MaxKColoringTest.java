@@ -91,7 +91,9 @@ public class MaxKColoringTest {
         
         long starttime = System.currentTimeMillis();
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
-        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 20000);
+        //FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 20000);
+        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, ef, 200000, "KColor_RHC");
+        
         fit.train();
         System.out.println("RHC: " + ef.value(rhc.getOptimal()));
         System.out.println(ef.foundConflict());
@@ -101,7 +103,7 @@ public class MaxKColoringTest {
         
         starttime = System.currentTimeMillis();
         SimulatedAnnealing sa = new SimulatedAnnealing(1E12, .1, hcp);
-        fit = new FixedIterationTrainer(sa, 20000);
+        fit = new FixedIterationTrainer(sa, ef, 20000, "KColor_SA");
         fit.train();
         System.out.println("SA: " + ef.value(sa.getOptimal()));
         System.out.println(ef.foundConflict());
@@ -111,7 +113,7 @@ public class MaxKColoringTest {
         
         starttime = System.currentTimeMillis();
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 10, 60, gap);
-        fit = new FixedIterationTrainer(ga, 50);
+        fit = new FixedIterationTrainer(ga, ef, 50000, "KColor_GA");
         fit.train();
         System.out.println("GA: " + ef.value(ga.getOptimal()));
         System.out.println(ef.foundConflict());
@@ -121,7 +123,7 @@ public class MaxKColoringTest {
         
         starttime = System.currentTimeMillis();
         MIMIC mimic = new MIMIC(500, 100, pop);
-        fit = new FixedIterationTrainer(mimic, 5);
+        fit = new FixedIterationTrainer(mimic, ef, 1000, "KColor_MIMIC");
         fit.train();
         System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));  
         System.out.println(ef.foundConflict());
