@@ -43,13 +43,13 @@ public class KnapsackTest {
     /** Random number generator */
     private static final Random random = new Random();
     /** The number of items */
-    private static final int NUM_ITEMS = 40;
+    private static final int NUM_ITEMS = 10;
     /** The number of copies each */
-    private static final int COPIES_EACH = 4;
+    private static final int COPIES_EACH = 1;
     /** The maximum value for a single element */
-    private static final double MAX_VALUE = 50;
+    private static final double MAX_VALUE = 100;
     /** The maximum weight for a single element */
-    private static final double MAX_WEIGHT = 50;
+    private static final double MAX_WEIGHT = 100;
     /** The maximum weight for the knapsack */
     private static final double MAX_KNAPSACK_WEIGHT =
          MAX_WEIGHT * NUM_ITEMS * COPIES_EACH * .4;

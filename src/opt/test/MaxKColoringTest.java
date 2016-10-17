@@ -41,7 +41,7 @@ public class MaxKColoringTest {
     /** The n value */
     private static final int N = 50; // number of vertices
     private static final int L =4; // L adjacent nodes per vertex
-    private static final int K = 8; // K possible colors
+    private static final int K = 3; // K possible colors
     /**
      * The test main
      * @param args ignored
@@ -120,7 +120,7 @@ public class MaxKColoringTest {
         System.out.println("Time : "+ (System.currentTimeMillis() - starttime));
         
         System.out.println("============================");
-        
+        /*
         starttime = System.currentTimeMillis();
         MIMIC mimic = new MIMIC(500, 100, pop);
         fit = new FixedIterationTrainer(mimic, ef, 1000, "KColor_MIMIC");
@@ -128,6 +128,6 @@ public class MaxKColoringTest {
         System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));  
         System.out.println(ef.foundConflict());
         System.out.println("Time : "+ (System.currentTimeMillis() - starttime));
-        
+        */
     }
 }

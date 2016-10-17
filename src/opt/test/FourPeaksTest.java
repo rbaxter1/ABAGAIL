@@ -24,6 +24,7 @@ import opt.ga.StandardGeneticAlgorithm;
 import opt.prob.GenericProbabilisticOptimizationProblem;
 import opt.prob.MIMIC;
 import opt.prob.ProbabilisticOptimizationProblem;
+import shared.ConvergenceTrainer;
 import shared.FixedIterationTrainer;
 
 /**
@@ -51,7 +52,7 @@ public class FourPeaksTest {
         
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
         FixedIterationTrainer fit = new FixedIterationTrainer(rhc, ef, 200000, "FourPeaks_RHC");
-        /*
+        
         fit.train();
         System.out.println("RHC: " + ef.value(rhc.getOptimal()));
         
@@ -59,7 +60,14 @@ public class FourPeaksTest {
         fit = new FixedIterationTrainer(sa, ef, 200000, "FourPeaks_SA");
         fit.train();
         System.out.println("SA: " + ef.value(sa.getOptimal()));
-        */
+        
+        for (int iter = 0; iter<10; ++iter) {
+        	ConvergenceTrainer cfit = new ConvergenceTrainer(sa, ef, 0.0000001, 10000, "FourPeaks_SA_95_i" + Integer.toString(iter));
+        	cfit.train();
+            System.out.println(ef.value(sa.getOptimal()) + "," + Integer.toString(cfit.getIterations()));
+        }
+        
+        /*
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 100, 10, gap);
         fit = new FixedIterationTrainer(ga, ef, 20000, "FourPeaks_GA");
         fit.train();
@@ -69,5 +77,6 @@ public class FourPeaksTest {
         fit = new FixedIterationTrainer(mimic, ef, 10000, "FourPeaks_MIMIC");
         fit.train();
         System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));
+        */
     }
 }

@@ -134,7 +134,7 @@ public class ConvergenceTrainer implements Trainer {
                 fos.write(bytesArray);
                 fos.flush();
   	      	  
-                System.out.println(mycontent);
+                //System.out.println(mycontent);
 	  	  	} while (Math.abs(error - lastError) > threshold
 	              && iterations < maxIterations);
 

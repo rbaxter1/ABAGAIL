@@ -70,12 +70,23 @@ public class TravelingSalesmanTest {
         System.out.println(ef.value(sa.getOptimal()));
         */
         
+        /*
         for (int iter = 0; iter<10; ++iter) {
-        	StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 20, gap);
-        	ConvergenceTrainer cfit = new ConvergenceTrainer(ga, ef, 0.0000001, 10000, "TSP_GA_200_150_20_i" + Integer.toString(iter));
+        	SimulatedAnnealing sa = new SimulatedAnnealing(1E12, .95, hcp);
+        	ConvergenceTrainer cfit = new ConvergenceTrainer(sa, ef, 0.0000001, 10000, "TSP_SA_95_i" + Integer.toString(iter));
         	cfit.train();
-            System.out.println(ef.value(ga.getOptimal()) + " iter:" + Integer.toString(cfit.getIterations()));
+            System.out.println(ef.value(sa.getOptimal()) + "," + Integer.toString(cfit.getIterations()));
         }
+        */
+        
+        
+        for (int iter = 0; iter<10; ++iter) {
+        	StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(100, 75, 50, gap);
+        	ConvergenceTrainer cfit = new ConvergenceTrainer(ga, ef, 0.0000001, 10000, "TSP_GA_200_50_10_i" + Integer.toString(iter));
+        	cfit.train();
+            System.out.println(ef.value(ga.getOptimal()) + "," + Integer.toString(cfit.getIterations()));
+        }
+        
         
         /*
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 20, gap);
