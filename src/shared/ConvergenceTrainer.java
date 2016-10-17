@@ -81,6 +81,7 @@ public class ConvergenceTrainer implements Trainer {
     /**
      * @see Trainer#train()
      */
+    /*
     public double train() {
         double lastError;
         double error = Double.MAX_VALUE;
@@ -92,7 +93,7 @@ public class ConvergenceTrainer implements Trainer {
              && iterations < maxIterations);
         return error;
     }
-    
+    */
     public double train() {
     	
     	//double sum = 0;
@@ -116,7 +117,6 @@ public class ConvergenceTrainer implements Trainer {
 	  	  	}
 	  	  	double cumTrainTime = 0;
 	  		
-	  	  	
 	  	  	do {
 	  	  		iterations++;
 	  	  		lastError = error;
@@ -128,7 +128,7 @@ public class ConvergenceTrainer implements Trainer {
 	            trainingTime /= Math.pow(10,9);
 	            cumTrainTime += trainingTime;
 	            
-                String mycontent = Integer.toString(i) + "," + df.format(ef.value(trainer.getOptimal())) + "," + df.format(trainingTime) + "," + df.format(cumTrainTime) + System.lineSeparator();
+                String mycontent = Integer.toString(iterations) + "," + df.format(ef.value(trainer.getOptimal())) + "," + df.format(trainingTime) + "," + df.format(cumTrainTime) + System.lineSeparator();
                 
                 byte[] bytesArray = mycontent.getBytes();
                 fos.write(bytesArray);
@@ -154,7 +154,7 @@ public class ConvergenceTrainer implements Trainer {
     		}
     	}
         
-        return error;;
+        return error;
     }
 
     /**

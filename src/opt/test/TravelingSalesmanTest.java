@@ -24,6 +24,7 @@ import opt.ga.StandardGeneticAlgorithm;
 import opt.prob.GenericProbabilisticOptimizationProblem;
 import opt.prob.MIMIC;
 import opt.prob.ProbabilisticOptimizationProblem;
+import shared.ConvergenceTrainer;
 import shared.FixedIterationTrainer;
 
 /**
@@ -33,7 +34,7 @@ import shared.FixedIterationTrainer;
  */
 public class TravelingSalesmanTest {
     /** The n value */
-    private static final int N = 50;
+    private static final int N = 1000;
     /**
      * The test main
      * @param args ignored
@@ -55,7 +56,10 @@ public class TravelingSalesmanTest {
         HillClimbingProblem hcp = new GenericHillClimbingProblem(ef, odd, nf);
         GeneticAlgorithmProblem gap = new GenericGeneticAlgorithmProblem(ef, odd, mf, cf);
         
-        RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
+        RandomizedHillClimbing rhc;
+        FixedIterationTrainer fit;
+        /*
+        rhc = new RandomizedHillClimbing(hcp);      
         FixedIterationTrainer fit = new FixedIterationTrainer(rhc, ef, 200000, "TSP_RHC");
         fit.train();
         System.out.println(ef.value(rhc.getOptimal()));
@@ -64,12 +68,22 @@ public class TravelingSalesmanTest {
         fit = new FixedIterationTrainer(sa, ef, 200000, "TSP_SA");
         fit.train();
         System.out.println(ef.value(sa.getOptimal()));
+        */
+        
+        for (int iter = 0; iter<10; ++iter) {
+        	StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 20, gap);
+        	ConvergenceTrainer cfit = new ConvergenceTrainer(ga, ef, 0.0000001, 10000, "TSP_GA_200_150_20_i" + Integer.toString(iter));
+        	cfit.train();
+            System.out.println(ef.value(ga.getOptimal()) + " iter:" + Integer.toString(cfit.getIterations()));
+        }
+        
         /*
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 20, gap);
-        fit = new FixedIterationTrainer(ga, ef, 10000, "TSP_GA");
+        fit = new FixedIterationTrainer(ga, ef, 10000, "TSP_GA_200_150_20");
         fit.train();
         System.out.println(ef.value(ga.getOptimal()));
-        
+        */
+        /*
         // for mimic we use a sort encoding
         ef = new TravelingSalesmanSortEvaluationFunction(points);
         int[] ranges = new int[N];

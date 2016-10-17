@@ -36,8 +36,8 @@ public class MyTest {
 
     private static OptimizationAlgorithm[] oa = new OptimizationAlgorithm[3];
     //private static String[] oaNames = {"RHC", "SA", "GA"};
-    //private static String[] oaNames = {"SA01", "SA50", "SA80"};
-    private static String[] oaNames = {"GA1000_100_10", "GA100_100_10", "GA500_100_10"};
+    private static String[] oaNames = {"SA95", "SA96", "SA97"};
+    //private static String[] oaNames = {"GA1000_100_10", "GA100_100_10", "GA500_100_10"};
     //, "GA1000_250_10", "GA100_50_10", "GA500_10_10"};
     
     private static String results = "";
@@ -56,13 +56,13 @@ public class MyTest {
         //oa[1] = new SimulatedAnnealing(1E11, .99, nnop[1]);
         //oa[2] = new StandardGeneticAlgorithm(200, 100, 10, nnop[2]);
         
-        //oa[0] = new SimulatedAnnealing(1E11, .01, nnop[0]);
-        //oa[1] = new SimulatedAnnealing(1E11, .50, nnop[1]);
-        //oa[2] = new SimulatedAnnealing(1E11, .80, nnop[2]);
+        oa[0] = new SimulatedAnnealing(1E11, .95, nnop[0]);
+        oa[1] = new SimulatedAnnealing(1E11, .96, nnop[1]);
+        oa[2] = new SimulatedAnnealing(1E11, .97, nnop[2]);
         
         oa[0] = new StandardGeneticAlgorithm(1000, 100, 10, nnop[0]);
-        oa[1] = new StandardGeneticAlgorithm(100, 100, 10, nnop[1]);
-        oa[2] = new StandardGeneticAlgorithm(500, 100, 10, nnop[2]);
+        //oa[1] = new StandardGeneticAlgorithm(100, 100, 10, nnop[1]);
+        //oa[2] = new StandardGeneticAlgorithm(500, 100, 10, nnop[2]);
         //oa[3] = new StandardGeneticAlgorithm(1000, 250, 100, nnop[0]);
         //oa[4] = new StandardGeneticAlgorithm(100, 50, 10, nnop[1]);
         //oa[5] = new StandardGeneticAlgorithm(500, 10, 10, nnop[2]);
